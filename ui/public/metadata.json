@@ -1,7 +1,7 @@
 {
-  "name": "kickstart",
+  "name": "Linkwarden",
   "description": {
-    "en": "My kickstart module"
+    "en": "Webpage Management for Individuals and Teams"
   },
   "categories": [],
   "authors": [
@@ -11,9 +11,9 @@
     }
   ],
   "docs": {
-    "documentation_url": "https://docs.kickstart.com/",
-    "bug_url": "https://github.com/NethServer/dev",
-    "code_url": "https://github.com/author/ns8-kickstart"
+    "documentation_url": "https://docs.linkwarden.app/",
+    "bug_url": "https://github.com/geniusdynamics/ns8-linkwarden/issues",
+    "code_url": "https://github.com/geniusdynamics/ns8-linkwarden"
   },
-  "source": "ghcr.io/nethserver/kickstart"
+  "source": "ghcr.io/geniusdynamics/linkwarden"
 }
