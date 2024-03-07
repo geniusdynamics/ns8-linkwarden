@@ -27,8 +27,8 @@ podman run \
     --volume=./restore:/docker-entrypoint-initdb.d/:Z \
     --volume=postgres-data:/var/lib/postgresql/data:Z \
     --replace --name=restore_db \
-    --env POSTGRES_USER=postgres \
-    --env POSTGRES_PASSWORD=Nethesis,1234 \
+    --env POSTGRES_USER=linkwarden \
+    --env POSTGRES_PASSWORD=L1nkW@d3N \
     --env POSTGRES_DB=linkwarden \
     --env TZ=UTC \
     "${POSTGRES_IMAGE}" < linkwarden.pg_dump

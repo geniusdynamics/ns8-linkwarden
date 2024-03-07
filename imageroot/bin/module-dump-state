@@ -7,5 +7,5 @@
 
 set -e
 
-echo "Dumping linkwarden postgres database"
-podman exec postgresql-app pg_dump -U postgres --format=c  linkwarden > linkwarden.pg_dump
+echo "Dumping linkwarden linkwarden database"
+podman exec linkwardenql-app pg_dump -U linkwarden --format=c  linkwarden > linkwarden.pg_dump
