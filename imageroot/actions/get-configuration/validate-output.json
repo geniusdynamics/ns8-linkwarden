@@ -20,8 +20,7 @@
         "host": {
             "type": "string",
             "description": "Host name for the application, like 'linkwarden.domain.org'",
-            "format": "idn-hostname",
-            "pattern": "\\."
+            "format": "idn-hostname"
         },
         "lets_encrypt": {
             "type": "boolean",
