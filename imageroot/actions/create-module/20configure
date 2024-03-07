@@ -19,7 +19,7 @@ NEXTAUTH_SECRET = data.get("NEXTAUTH_SECRET",random_key)
 
 # Talk with agent using file descriptor.
 
-agent.set_env("PAPERLESS_SECRET_KEY", NEXTAUTH_SECRET)
+agent.set_env("NEXTAUTH_UR", NEXTAUTH_SECRET)
 
 NEXTAUTH_URL = data.get("NEXTAUTH_URL",random_key)
 agent.set_env("NEXTAUTH_URL", NEXTAUTH_URL)
