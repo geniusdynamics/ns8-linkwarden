@@ -25,5 +25,5 @@ config["lets_encrypt"] = os.getenv("TRAEFIK_LETS_ENCRYPT") == "True"
 if not config:
     print("Error: JSON output is empty.")
 else:
-# Dump the configuration to stdout
-json.dump(config, fp=sys.stdout)
+    # Dump the configuration to stdouzt
+    json.dump(config, fp=sys.stdout)
