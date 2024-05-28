@@ -21,7 +21,7 @@ ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/linkwarden-app.pid \
     --cidfile %t/linkwarden-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/linkwarden.pod-id --replace -d --name  linkwarden-app \
-    --volume ./data:/data/data \
+    --volume ./data:/data/data:Z \
     --env=LINKWARDEN_* \
     --env POSTGRES_PASSWORD=L1nkW@d3N \
     --env 'DATABASE_URL="postgresql://linkwarden:${POSTGRES_PASSWORD}@127.0.0.1:5432/linkwarden"' \
