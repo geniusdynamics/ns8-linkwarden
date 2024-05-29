@@ -28,10 +28,10 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/linkwarden-app.pid \
     --env DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_ROOT_HOST}:5432/${POSTGRES_DATABASE}" \
     --env NEXTAUTH_SECRET=${NEXTAUTH_SECRET} \
     --env NEXTAUTH_URL=${NEXTAUTH_URL} \
-    --env NEXT_PUBLIC_EMAIL_PROVIDER=${SMTP_ENABLED} \
-    --env EMAIL_FROM=${EMAIL_FROM} \
-    --env EMAIL_SERVER=${EMAIL_SERVER} \
     ${LINKWARDEN_IMAGE}
+#     --env NEXT_PUBLIC_EMAIL_PROVIDER=${SMTP_ENABLED} \
+#        --env EMAIL_FROM=${EMAIL_FROM} \
+#        --env EMAIL_SERVER=${EMAIL_SERVER} \
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/linkwarden-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP linkwarden-app
 SyslogIdentifier=%u
