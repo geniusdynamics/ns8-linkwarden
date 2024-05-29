@@ -50,7 +50,7 @@ agent.dump_env()
 # Add EMAIL SETTINGS
 rdb = agent.redis_connect(use_replica=True)
 smtp_settings = agent.get_smarthost_settings(rdb)
-SMTP_ENABLED = smtp_settings['enabled']
+SMTP_ENABLED = "true" if smtp_settings['enabled'] else "false"
 EMAIL_SERVER = f'smtp://{smtp_settings["username"]}:{smtp_settings["password"]}@{smtp_settings["host"]}:{smtp_settings["port"]}'
 EMAIL_FROM = smtp_settings['username']
 agent.set_env("SMTP_ENABLED", SMTP_ENABLED)
