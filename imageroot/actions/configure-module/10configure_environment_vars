@@ -8,7 +8,7 @@
 import json
 import sys
 import agent
-
+import secrets
 # Try to parse the stdin as JSON.
 # If parsing fails, output everything to stderr
 data = json.load(sys.stdin)
@@ -30,6 +30,21 @@ db_config = {
     
 }
 agent.write_envfile('database.env', db_config)
+
+random_key = secrets.token_hex(16)
+
+NEXTAUTH_SECRET = data.get("NEXTAUTH_SECRET",random_key)
+
+# Talk with agent using file descriptor.
+
+agent.set_env("NEXTAUTH_SECRET", NEXTAUTH_SECRET)
+
+NEXTAUTH_URL = data.get("NEXTAUTH_URL",data.get("TRAEFIK_HOST"))
+agent.set_env("NEXTAUTH_URL", NEXTAUTH_URL+'/api/v1/auth')
+
+# Make sure everything is saved inside the environment file
+# just before starting systemd unit
+agent.dump_env()
 #This is specific to you module, so you need to change it accordingly.
 # we read a json stdin {"vars1":true, "var2":"foo", "vars3": 3} and we writ it to .config/state/environment
 # Upper case to set environment variable and minor case to read from stdin
