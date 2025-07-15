@@ -21,15 +21,15 @@ EOS
 # DB dump file. The container will be stopped at the end
 
 podman run \
-    --rm \
-    --interactive \
-    --network=none \
-    --volume=./restore:/docker-entrypoint-initdb.d/:Z \
-    --volume=postgres-data:/var/lib/postgresql/data:Z \
-    --replace --name=restore_db \
-    --env-file=database.env \
-    --env TZ=UTC \
-    "${POSTGRES_IMAGE}" < linkwarden.pg_dump
+	--rm \
+	--interactive \
+	--network=none \
+	--volume=./restore:/docker-entrypoint-initdb.d/:Z \
+	--volume=postgres-data:/var/lib/postgresql/data:Z \
+	--replace --name=restore_db \
+	--env-file=database.env \
+	--env TZ=UTC \
+	"${POSTGRES_IMAGE}" <linkwarden.pg_dump
 
 # If the restore is successful, clean up:
 rm -rfv restore/ linkwarden.pg_dump
