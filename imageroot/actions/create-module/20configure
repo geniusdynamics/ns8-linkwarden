@@ -12,32 +12,34 @@ import agent
 import secrets
 
 data = json.load(sys.stdin)
-#
-# # DB Config
-# POSTGRES_DB = data.get("POSTGRES_DB","linkwarden")
-# POSTGRES_USER = data.get("POSTGRES_USER","linkwarden")
-# POSTGRES_PASSWORD = data.get("POSTGRES_PASSWORD","LinkWard3n")
-#
-# db_config = {
-#
-#     "POSTGRES_ROOT_HOST": "localhost",
-#     "POSTGRES_DATABASE": POSTGRES_DB,
-#     "POSTGRES_USER": POSTGRES_USER,
-#     "POSTGRES_PASSWORD": POSTGRES_PASSWORD,
-# }
-# agent.write_envfile('database.env', db_config)
+#This is specific to you module, so you need to change it accordingly.
 
-# Setup default values
-# random_key = secrets.token_hex(16)
-# NEXTAUTH_SECRET = data.get("NEXTAUTH_SECRET",random_key)
-#
-# # Talk with agent using file descriptor.
-#
-# agent.set_env("NEXTAUTH_SECRET", NEXTAUTH_SECRET)
-#
-# NEXTAUTH_URL = data.get("NEXTAUTH_URL",data.get("TRAEFIK_HOST"))
-# agent.set_env("NEXTAUTH_URL", NEXTAUTH_URL+'/api/v1/auth')
-#
-# # Make sure everything is saved inside the environment file
+def generate_random_password(length):
+    # Generate random bytes and convert them to a hexadecimal string
+    random_bytes = os.urandom(length)
+    password = random_bytes.hex()
+    return password[:length]
+
+# DB Config
+POSTGRES_DB = data.get("POSTGRES_DB","linkwarden")
+POSTGRES_USER = data.get("POSTGRES_USER","linkwarden")
+POSTGRES_PASSWORD = generate_random_password(16)
+
+db_config = {
+    "POSTGRES_DATABASE": POSTGRES_DB,
+    "POSTGRES_USER": POSTGRES_USER,
+    "POSTGRES_PASSWORD": POSTGRES_PASSWORD,
+}
+agent.write_envfile('database.env', db_config)
+
+random_key = secrets.token_hex(16)
+POSTGRES_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@postgresql-app/{POSTGRES_DB}"
+app_config = {
+    "NEXTAUTH_SECRET": random_key,
+    "DATABASE_URL": POSTGRES_URL,
+    "POSTGRES_PASSWORD": POSTGRES_PASSWORD,
+}
+agent.write_envfile('app-config.env', app_config)
+
 # # just before starting systemd unit
-# agent.dump_env()
+agent.dump_env()
