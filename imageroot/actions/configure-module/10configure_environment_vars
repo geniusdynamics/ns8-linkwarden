@@ -22,7 +22,7 @@ EMAIL_FROM = smtp_settings["username"]
 
 NEXTAUTH_URL = data.get("host", "")
 app_config = {
-    "NEXTAUTH_URL": f"{NEXTAUTH_URL}/api/v1/auth",
+    "NEXTAUTH_URL": f"https://{NEXTAUTH_URL}/api/v1/auth",
     # "SMTP_ENABLED": SMTP_ENABLED,
     # "EMAIL_SERVER": EMAIL_SERVER,
     # "EMAIL_FROM": EMAIL_FROM,
