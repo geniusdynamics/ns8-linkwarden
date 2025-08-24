@@ -9,22 +9,23 @@ import json
 import sys
 import agent
 import secrets
+
 # Try to parse the stdin as JSON.
 # If parsing fails, output everything to stderr
 data = json.load(sys.stdin)
 # Add EMAIL SETTINGS
 rdb = agent.redis_connect(use_replica=True)
 smtp_settings = agent.get_smarthost_settings(rdb)
-SMTP_ENABLED = "true" if smtp_settings['enabled'] else "false"
+SMTP_ENABLED = "false" if smtp_settings["enabled"] else "false"
 EMAIL_SERVER = f'smtp://{smtp_settings["username"]}:{smtp_settings["password"]}@{smtp_settings["host"]}:{smtp_settings["port"]}'
-EMAIL_FROM = smtp_settings['username']
+EMAIL_FROM = smtp_settings["username"]
 
-NEXTAUTH_URL = data.get("host", '')
+NEXTAUTH_URL = data.get("host", "")
 app_config = {
-    "NEXTAUTH_URL": f'{NEXTAUTH_URL}/api/v1/auth',
-    "SMTP_ENABLED": SMTP_ENABLED,
-    "EMAIL_SERVER": EMAIL_SERVER,
-    "EMAIL_FROM": EMAIL_FROM,
+    "NEXTAUTH_URL": f"https://{NEXTAUTH_URL}/api/v1/auth",
+    # "SMTP_ENABLED": SMTP_ENABLED,
+    # "EMAIL_SERVER": EMAIL_SERVER,
+    # "EMAIL_FROM": EMAIL_FROM,
 }
 
 agent.write_envfile("app.env", app_config)
