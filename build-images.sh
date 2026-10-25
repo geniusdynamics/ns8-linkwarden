@@ -14,7 +14,7 @@ images=()
 repobase="${REPOBASE:-ghcr.io/geniusdynamics}"
 # Configure the image name
 reponame="linkwarden"
-LINKWARDEN_TAG="v2.13.5"
+LINKWARDEN_TAG="v2.16.3"
 # Create a new empty container image
 container=$(buildah from scratch)
 
