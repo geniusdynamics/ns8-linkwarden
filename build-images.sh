@@ -17,7 +17,8 @@ reponame="linkwarden"
 # Node.js 25+ no longer ships Corepack, install it from npm
 # renovate: datasource=npm packageName=corepack
 corepack_version=0.36.0
-LINKWARDEN_TAG="v2.16.3"
+# renovate: datasource=docker packageName=ghcr.io/linkwarden/linkwarden
+LINKWARDEN_VERSION=v2.16.3
 # Create a new empty container image
 container=$(buildah from scratch)
 
@@ -49,7 +50,7 @@ buildah config --entrypoint=/ \
 	--label="org.nethserver.authorizations=traefik@node:routeadm" \
 	--label="org.nethserver.tcp-ports-demand=1" \
 	--label="org.nethserver.rootfull=0" \
-	--label="org.nethserver.images=docker.io/postgres:15.20-alpine3.24 ghcr.io/linkwarden/linkwarden:${LINKWARDEN_TAG}" \
+	--label="org.nethserver.images=docker.io/postgres:15.20-alpine3.24 ghcr.io/linkwarden/linkwarden:${LINKWARDEN_VERSION}" \
 	"${container}"
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"
